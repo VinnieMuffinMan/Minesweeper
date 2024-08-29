@@ -16,7 +16,6 @@ def search_start(x: int, y: int, w: int, h: int, m: int, opening=False):
     board = start(w, h, m)
     valid = False
     while not valid:
-        print("loop")
         valid = True
         if board[y][x] == -2:
             board = start(w, h, m)
@@ -74,6 +73,44 @@ def get_adj(board, x: int, y: int):
         (x, y + 1),
         (x + 1, y + 1),
     ]
+
+
+def pretty_to_string(board, mines=False):
+    w = len(board[0]) - 1
+    h = len(board) - 1
+    s = ""
+    for i in range(len(str(w)) - 1, -1, -1):
+        s += " " * (len(str(h)) + 1)
+        c = 0
+        d = 10**i
+        first_zero = i > 0
+        for i in range(w + 1):
+            if first_zero:
+                s += " "
+            else:
+                s += str(c)
+            if i % d == d - 1:
+                c += 1
+                c %= 10
+                first_zero = False
+        s += "\n"
+
+    s += "\n"
+    if mines:
+        dic = {-4: "F", -3: "f", -2: "X", -1: "."}
+    else:
+        dic = {-4: "f", -3: "f", -2: ".", -1: "."}
+
+    for i, row in enumerate(board):
+        num = ("%" + str(len(str(h))) + "d ") % i
+        s += num
+        for col in row:
+            if col < 0:
+                s += dic[col]
+            else:
+                s += str(col)
+        s += "\n"
+    return s
 
 
 def board_to_string(board, mines=False):

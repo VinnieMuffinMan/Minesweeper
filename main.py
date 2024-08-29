@@ -9,7 +9,7 @@ if __name__ == "__main__":
     move = input("Move? ")
     x, y = move.split(",")
     b, o = board.search_start(int(x), int(y), int(w), int(h), int(m), open)
-    print(board.board_to_string(b))
+    print(board.pretty_to_string(b))
     move = input("Move? (x to quit) ")
     while move != "x":
         if move[0] == "f":
@@ -21,12 +21,12 @@ if __name__ == "__main__":
             o = board.search(b, int(x), int(y))
         if o == 1:
             print("BOOM")
-            print(board.board_to_string(b, True))
+            print(board.pretty_to_string(b, True))
             break
         if o == 2:
             print("Empty")
         if o == 0:
-            print(board.board_to_string(b))
+            print(board.pretty_to_string(b))
         if board.check_win(b):
             print("Winner")
             break
