@@ -137,17 +137,13 @@ def _search(board, search):
 
 
 def check_win(board):
-    no_tiles = True
-    no_mines = True
     for row in board:
         for col in row:
-            if col == -3:
-                no_mines = False
-                no_tiles = False
-            if col == -1:
-                no_tiles = False
-
-    return no_mines or no_tiles
+            if col == -4:
+                return False
+            if col == -2:
+                return False
+    return True
 
 
 if __name__ == "__main__":
